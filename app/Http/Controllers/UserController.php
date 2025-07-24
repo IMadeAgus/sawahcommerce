@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,9 +13,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('dashboard')->with([
-            'title' => 'Dashboard User',
-        ]);
+        $products = Product::latest()->paginate(10);
+        return view('home',compact('products'))
+                    ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
