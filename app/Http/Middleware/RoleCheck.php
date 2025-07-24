@@ -17,7 +17,7 @@ class RoleCheck
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if ($request->user()->role != $role) {
-            return redirect('/')->with('error', 'You do not have access to this resource.');
+            abort(404);
         }
 
         return $next($request);
