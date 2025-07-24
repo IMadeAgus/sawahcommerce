@@ -28,7 +28,9 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view('admin.products.create');
+        return view('admin.products.create')->with([
+            'title' => 'Create Product',
+        ]);
     }
   
     /**
@@ -60,32 +62,43 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product): View
+    public function show(string $id): View
     {
-        return view('admin.products.show', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('admin.products.show', compact('product'))->with([
+            'title' => 'Product Details',
+        ]);
     }
   
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product): View
+    public function edit(string $id): View
     {
-        return view('admin.products.edit', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('admin.products.edit', compact('product'))->with([
+            'title' => 'Edit Product',
+        ]);
     }
   
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
+        
+        $product = Product::findOrFail($id);
         $input = $request->all();
     
         if ($image = $request->file('image')) {
+            if ($product->image && file_exists(public_path('images/' . $product->image))) {
+                unlink(public_path('images/' . $product->image));
+            }
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
@@ -103,8 +116,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
+        $product = Product::findOrFail($id);
         $product->delete();
          
         return redirect()->route('admin.products.index')

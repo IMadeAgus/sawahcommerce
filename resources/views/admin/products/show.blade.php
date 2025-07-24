@@ -1,36 +1,35 @@
 @extends('admin.products.layout')
 
 @section('content')
-    <div class="card mt-5">
-        <h2 class="card-header">Show Product</h2>
-        <div class="card-body">
+    <div class="max-w-4xl mx-auto mt-10 bg-white rounded-xl shadow-md p-6">
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary btn-sm" href="{{ route('admin.products.index') }}"><i class="fa fa-arrow-left"></i>
-                    Back</a>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Name:</strong> <br />
-                        {{ $product->name }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
-                    <div class="form-group">
-                        <strong>Details:</strong> <br />
-                        {{ $product->detail }}
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Image:</strong><br />
-                        <img src="/images/{{ $product->image }}" width="500px">
-                    </div>
-                </div>
-            </div>
-
+        <div class="flex justify-end items-center mb-6">
+            <a href="{{ route('admin.products.index') }}"
+                class="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded shadow-sm">
+                <i class="fa fa-arrow-left mr-2"></i> Back
+            </a>
         </div>
+
+        <div class="space-y-6 text-gray-700 text-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="font-semibold">Name:</label>
+                    <p class="mt-1">{{ $product->name }}</p>
+                </div>
+
+                <div>
+                    <label class="font-semibold">Price:</label>
+                    <p class="mt-1">{{ $product->price }}</p>
+                </div>
+            </div>
+
+            <div>
+                <label class="font-semibold">Image:</label>
+                <div class="mt-2">
+                    <img src="/images/{{ $product->image }}" class="rounded-lg shadow w-full">
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

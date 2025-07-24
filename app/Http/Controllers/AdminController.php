@@ -24,7 +24,6 @@ class AdminController extends Controller
             'productsCount' => $productsCount,
             'adminsCount' => $adminsCount,
             'title' => 'Dashboard Admin',
-            'i' => (request()->input('page', 1) - 1) * 5,
         ]);
     }
 
