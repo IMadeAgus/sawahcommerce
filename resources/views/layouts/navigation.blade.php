@@ -16,6 +16,15 @@
                         {{ __('Home') }}
                     </x-nav-link>
                 </div>
+                @auth
+                    @if (Auth::user()->role == 'admin')
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.index')">
+                                {{ __('Products') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
+                @endauth
             </div>
 
             <!-- Settings Dropdown -->
@@ -38,9 +47,13 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                        @auth
+                            @if (Auth::user()->role != 'admin')
+                                <x-responsive-nav-link :href="route('profile.edit')">
+                                    {{ __('Profile') }}
+                                </x-responsive-nav-link>
+                            @endif
+                        @endauth
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -88,9 +101,13 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                @auth
+                    @if (Auth::user()->role != 'admin')
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
+                        </x-responsive-nav-link>
+                    @endif
+                @endauth
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
