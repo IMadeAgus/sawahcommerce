@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -11,7 +13,16 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('dashboard')->with([
+        if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
+        $usersCount = User::where('role', 'user')->count();
+        $productsCount = Product::count();
+        $adminsCount = User::where('role', 'admin')->count();
+        return view('admin.dashboard')->with([
+            'usersCount' => $usersCount,
+            'productsCount' => $productsCount,
+            'adminsCount' => $adminsCount,
             'title' => 'Dashboard Admin',
         ]);
     }
