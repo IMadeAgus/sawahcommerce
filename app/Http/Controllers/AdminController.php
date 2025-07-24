@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         return view('dashboard')->with([
-            'title' => 'Dashboard User',
+            'title' => 'Dashboard Admin',
         ]);
     }
 

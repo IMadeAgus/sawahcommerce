@@ -20,15 +20,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth'])->get('/dashboard', function () {
+    if (auth()->guard('web')->user()->role === 'admin') {
+        return app(AdminController::class)->index();
+    }
+    return app(UserController::class)->index();
+})->name('dashboard');
+
 Route::middleware(['auth', 'role:admin'])->group(function(){
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('products', ProductController::class);
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function(){
-    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

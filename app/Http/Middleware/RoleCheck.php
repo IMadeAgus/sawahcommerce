@@ -14,7 +14,7 @@ class RoleCheck
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
         if ($request->user()->role != $role) {
             return redirect('/')->with('error', 'You do not have access to this resource.');
