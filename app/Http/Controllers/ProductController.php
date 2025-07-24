@@ -26,8 +26,11 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create()
     {
+        if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
         return view('admin.products.create')->with([
             'title' => 'Create Product',
         ]);
@@ -38,6 +41,9 @@ class ProductController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
         $request->validate([
             'name' => 'required',
             'price' => 'required',
@@ -73,8 +79,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
+        if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
         $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('product'))->with([
             'title' => 'Edit Product',
@@ -93,7 +102,7 @@ class ProductController extends Controller
         ]);
         
         $product = Product::findOrFail($id);
-        $input = $request->all();
+        $input = $request->only(['name', 'price', 'image']);
     
         if ($image = $request->file('image')) {
             if ($product->image && file_exists(public_path('images/' . $product->image))) {
@@ -118,6 +127,9 @@ class ProductController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
+        if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
         $product = Product::findOrFail($id);
         $product->delete();
          
