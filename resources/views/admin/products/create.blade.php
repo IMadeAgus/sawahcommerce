@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.products.layout')
 
 @section('content')
     <div class="card mt-5">
@@ -6,11 +6,11 @@
         <div class="card-body">
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary btn-sm" href="{{ route('products.index') }}"><i class="fa fa-arrow-left"></i>
+                <a class="btn btn-primary btn-sm" href="{{ route('admin.products.index') }}"><i class="fa fa-arrow-left"></i>
                     Back</a>
             </div>
 
-            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">

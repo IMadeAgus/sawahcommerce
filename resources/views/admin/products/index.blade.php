@@ -1,8 +1,7 @@
-@extends('admin.layout')
+@extends('admin.products.layout')
 
 @section('content')
     <div class="card mt-5">
-        <h2 class="card-header">Laravel 12 CRUD with Image Upload Tutorial - ItSolutionStuff.com</h2>
         <div class="card-body">
 
             @session('success')
@@ -10,7 +9,7 @@
             @endsession
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-success btn-sm" href="{{ route('products.create') }}"> <i class="fa fa-plus"></i> Create New
+                <a class="btn btn-success btn-sm" href="{{ route('admin.products.create') }}"> <i class="fa fa-plus"></i> Create New
                     Product</a>
             </div>
 
@@ -33,12 +32,12 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }}</td>
                             <td>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
 
-                                    <a class="btn btn-info btn-sm" href="{{ route('products.show', $product->id) }}"><i
+                                    <a class="btn btn-info btn-sm" href="{{ route('admin.products.show', $product->id) }}"><i
                                             class="fa-solid fa-list"></i> Show</a>
 
-                                    <a class="btn btn-primary btn-sm" href="{{ route('products.edit', $product->id) }}"><i
+                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.products.edit', $product->id) }}"><i
                                             class="fa-solid fa-pen-to-square"></i> Edit</a>
 
                                     @csrf

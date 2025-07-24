@@ -6,9 +6,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -28,9 +28,17 @@ Route::middleware(['auth'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
-    Route::resource('products', ProductController::class);
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::resource('products', ProductController::class)->names([
+        'index' => 'admin.products.index',
+        'show' => 'admin.products.show',
+        'create' => 'admin.products.create',
+        'store' => 'admin.products.store',
+        'edit' => 'admin.products.edit',
+        'update' => 'admin.products.update',
+        'destroy' => 'admin.products.destroy',
+    ])->parameters([
+        'products' => 'id'
+    ]);
 });
 
 Route::middleware(['auth', 'role:user'])->group(function(){
