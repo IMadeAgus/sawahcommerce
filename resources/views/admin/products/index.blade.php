@@ -59,7 +59,8 @@
                                     <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
                                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Confirm Deletion</h2>
                                         <p class="text-sm text-gray-600 mb-6">Are you sure you want to delete
-                                            <strong>{{ $product->name }}</strong>?</p>
+                                            <strong>{{ $product->name }}</strong>?
+                                        </p>
                                         <div class="flex justify-end space-x-2">
                                             <button type="button"
                                                 onclick="document.getElementById('{{ $modalId }}').classList.add('hidden')"

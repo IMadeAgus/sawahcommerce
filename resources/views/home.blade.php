@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="mt-8">
-                    {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
+                    {{ $products->withQueryString()->links() }}
                 </div>
             @endif
         </div>
