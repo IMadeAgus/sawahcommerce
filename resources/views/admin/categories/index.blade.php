@@ -82,7 +82,7 @@
         </div>
 
     <div class="mt-6">
-            {{ $products->withQueryString()->links() }}
+            {{ $categories->withQueryString()->links() }}
         </div>
     </div>
 @endsection
