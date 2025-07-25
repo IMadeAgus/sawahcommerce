@@ -9,7 +9,8 @@
             </a>
         </div>
 
-        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data"
+            class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -25,7 +26,7 @@
 
             <div>
                 <label for="inputPrice" class="block text-sm font-medium text-gray-700">Price</label>
-                <input name="price" id="inputPrice" value="{{ $product->price }}"  type="number" min="0"
+                <input name="price" id="inputPrice" value="{{ $product->price }}" type="number" min="0"
                     class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('price') border-red-500 @enderror"
                     placeholder="Price">
                 @error('price')
@@ -44,12 +45,13 @@
             </div>
 
             <div>
-                <label for="inputCategory" class="block text-sm font-medium text-gray-700">Price</label>
+                <label for="inputCategory" class="block text-sm font-medium text-gray-700">Category</label>
                 <select name="category_id" id="inputCategory" value="{{ $product->category->name }}"
                     class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('category') border-red-500 @enderror"
                     placeholder="Category">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}</option>
                     @endforeach
                 </select>
                 @error('category')

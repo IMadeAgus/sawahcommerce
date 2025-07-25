@@ -23,7 +23,6 @@
                         <th class="px-4 py-2">Image</th>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Price</th>
-                        <th class="px-4 py-2">Category</th>
                         <th class="px-4 py-2 w-64">Action</th>
                     </tr>
                 </thead>
@@ -37,7 +36,6 @@
                             </td>
                             <td class="px-4 py-2">{{ $product->name }}</td>
                             <td class="px-4 py-2">{{ $product->price }}</td>
-                            <td class="px-4 py-2">{{ $product->category->name ?? '-' }}</td>
                             @php $modalId = 'deleteModal' . $product->id; @endphp
                             <td class="px-4 py-2 space-x-2">
                                 <a href="{{ route('admin.products.show', $product->id) }}"
@@ -56,10 +54,12 @@
                                     <i class="fa-solid fa-trash mr-1"></i> Delete
                                 </button>
 
-                                <div id="{{ $modalId }}" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+                                <div id="{{ $modalId }}"
+                                    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
                                     <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
                                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Confirm Deletion</h2>
-                                        <p class="text-sm text-gray-600 mb-6">Are you sure you want to delete <strong>{{ $product->name }}</strong>?</p>
+                                        <p class="text-sm text-gray-600 mb-6">Are you sure you want to delete
+                                            <strong>{{ $product->name }}</strong>?</p>
                                         <div class="flex justify-end space-x-2">
                                             <button type="button"
                                                 onclick="document.getElementById('{{ $modalId }}').classList.add('hidden')"
@@ -67,7 +67,8 @@
                                                 Cancel
                                             </button>
 
-                                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                            <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -89,8 +90,8 @@
             </table>
         </div>
 
-      <div class="mt-6">
-            {{ $products->withQueryString()->links() }}
-        </div>
+        <div class="mt-6">
+            {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
+        </div>
     </div>
 @endsection
