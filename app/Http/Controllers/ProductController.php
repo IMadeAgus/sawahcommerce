@@ -72,7 +72,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): View
+    public function show(string $id)
     {
          if (auth()->guard('web')->user()->role != 'admin') {
             return redirect()->route('dashboard');
