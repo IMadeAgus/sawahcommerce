@@ -91,7 +91,7 @@
         </div>
 
         <div class="mt-6">
-            {!! $products->withQueryString()->links('pagination::bootstrap-5') !!}
+            {{ $products->withQueryString()->links() }}
         </div>
     </div>
 @endsection
