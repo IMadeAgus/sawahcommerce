@@ -28,6 +28,9 @@
                                 <h3 class="text-lg font-semibold text-gray-800 truncate">
                                     {{ $product->name }}
                                 </h3>
+                                <h3 class="text-lg font-medium text-gray-800 truncate">
+                                    {{ $product->category->name ?? 'N/A' }}
+                                </h3>
 
                                 <p class="text-gray-600 mt-2">
                                     Rp {{ number_format($product->price, 0, ',', '.') }}

@@ -3,12 +3,13 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 // Route::get('/dashboard', function () {
@@ -40,6 +41,17 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         'destroy' => 'admin.products.destroy',
     ])->parameters([
         'products' => 'id'
+    ]);
+     Route::resource('categories', CategoryController::class)->names([
+        'index' => 'admin.categories.index',
+        'show' => 'admin.categories.show',
+        'create' => 'admin.categories.create',
+        'store' => 'admin.categories.store',
+        'edit' => 'admin.categories.edit',
+        'update' => 'admin.categories.update',
+        'destroy' => 'admin.categories.destroy',
+    ])->parameters([
+        'categories' => 'id'
     ]);
 });
 

@@ -16,6 +16,13 @@
                     <div>
                         <h1 class="text-3xl font-bold text-gray-800">{{ $product->name }}</h1>
 
+                          <p class="text-2xl mt-2 mb-4">
+                            {{ $product->category->name ?? 'N/A' }}
+                        </p>
+                          <p class="text-xl mt-2 mb-4">
+                            {{ $product->description ?? 'N/A' }}
+                        </p>
+                      
                         <p class="text-xl text-red-600 mt-2 mb-4">
                             Rp {{ number_format($product->price, 0, ',', '.') }}
                         </p>

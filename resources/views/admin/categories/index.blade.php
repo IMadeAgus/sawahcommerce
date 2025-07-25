@@ -1,4 +1,4 @@
-@extends('admin.products.layout')
+@extends('admin.categories.layout')
 
 @section('content')
     <div class="max-w-7xl mx-auto mt-10 bg-white rounded-xl shadow-md p-6">
@@ -9,9 +9,9 @@
         @endsession
 
         <div class="flex justify-end mb-4">
-            <a href="{{ route('admin.products.create') }}"
+            <a href="{{ route('admin.categories.create') }}"
                 class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm">
-                <i class="fa fa-plus mr-2"></i> Create New Product
+                <i class="fa fa-plus mr-2"></i> Create New Category
             </a>
         </div>
 
@@ -20,32 +20,24 @@
                 <thead class="bg-gray-100 text-left text-gray-700 font-semibold">
                     <tr>
                         <th class="px-4 py-2 w-20">No</th>
-                        <th class="px-4 py-2">Image</th>
                         <th class="px-4 py-2">Name</th>
-                        <th class="px-4 py-2">Price</th>
-                        <th class="px-4 py-2">Category</th>
                         <th class="px-4 py-2 w-64">Action</th>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-gray-100">
-                    @forelse ($products as $product)
+                    @forelse ($categories as $category)
                         <tr class="hover:bg-gray-50">
                             <td class="px-4 py-2">{{ ++$i }}</td>
-                            <td class="px-4 py-2">
-                                <img src="/images/{{ $product->image }}" class="w-24 rounded-md shadow" alt="Product Image">
-                            </td>
-                            <td class="px-4 py-2">{{ $product->name }}</td>
-                            <td class="px-4 py-2">{{ $product->price }}</td>
-                            <td class="px-4 py-2">{{ $product->category->name ?? '-' }}</td>
-                            @php $modalId = 'deleteModal' . $product->id; @endphp
+                            <td class="px-4 py-2">{{ $category->name }}</td>
+                            @php $modalId = 'deleteModal' . $category->id; @endphp
                             <td class="px-4 py-2 space-x-2">
-                                <a href="{{ route('admin.products.show', $product->id) }}"
+                                <a href="{{ route('admin.categories.show', $category->id) }}"
                                     class="inline-flex items-center px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs">
                                     <i class="fa-solid fa-list mr-1"></i> Show
                                 </a>
 
-                                <a href="{{ route('admin.products.edit', $product->id) }}"
+                                <a href="{{ route('admin.categories.edit', $category->id) }}"
                                     class="inline-flex items-center px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded text-xs">
                                     <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
                                 </a>
@@ -59,7 +51,7 @@
                                 <div id="{{ $modalId }}" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
                                     <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
                                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Confirm Deletion</h2>
-                                        <p class="text-sm text-gray-600 mb-6">Are you sure you want to delete <strong>{{ $product->name }}</strong>?</p>
+                                        <p class="text-sm text-gray-600 mb-6">Are you sure you want to delete <strong>{{ $category->name }}</strong>?</p>
                                         <div class="flex justify-end space-x-2">
                                             <button type="button"
                                                 onclick="document.getElementById('{{ $modalId }}').classList.add('hidden')"
@@ -67,7 +59,7 @@
                                                 Cancel
                                             </button>
 
-                                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -89,7 +81,7 @@
             </table>
         </div>
 
-      <div class="mt-6">
+    <div class="mt-6">
             {{ $products->withQueryString()->links() }}
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
   
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,6 +34,7 @@ class ProductController extends Controller
         }
         return view('admin.products.create')->with([
             'title' => 'Create Product',
+            'categories' => Category::all(),
         ]);
     }
   
@@ -45,12 +47,14 @@ class ProductController extends Controller
             return redirect()->route('dashboard');
         }
         $request->validate([
-            'name' => 'required',
-            'price' => 'required',
+            'name' => 'required|string|max:100',
+            'price' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string|max:255',
         ]);
     
-        $input = $request->all();
+        $input = $request->only(['name', 'price', 'image', 'category_id', 'description']);
     
         if ($image = $request->file('image')) {
             $destinationPath = 'images/';
@@ -70,6 +74,9 @@ class ProductController extends Controller
      */
     public function show(string $id): View
     {
+         if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
         $product = Product::findOrFail($id);
         return view('admin.products.show', compact('product'))->with([
             'title' => 'Product Details',
@@ -87,6 +94,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('product'))->with([
             'title' => 'Edit Product',
+            'categories' => Category::all(),
         ]);
     }
   
@@ -95,14 +103,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id): RedirectResponse
     {
+         if (auth()->guard('web')->user()->role != 'admin') {
+            return redirect()->route('dashboard');
+        }
         $request->validate([
-            'name' => 'required',
-            'price' => 'required',
+            'name' => 'required|string|max:100',
+            'price' => 'required|numeric|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string|max:255',
         ]);
         
         $product = Product::findOrFail($id);
-        $input = $request->only(['name', 'price', 'image']);
+        $input = $request->only(['name', 'price', 'image', 'category_id', 'description']);
     
         if ($image = $request->file('image')) {
             if ($product->image && file_exists(public_path('images/' . $product->image))) {
@@ -127,6 +140,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id): RedirectResponse
     {
+        
         if (auth()->guard('web')->user()->role != 'admin') {
             return redirect()->route('dashboard');
         }

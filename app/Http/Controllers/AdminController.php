@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Category;
+
 
 class AdminController extends Controller
 {
@@ -19,10 +21,12 @@ class AdminController extends Controller
         $usersCount = User::where('role', 'user')->count();
         $productsCount = Product::count();
         $adminsCount = User::where('role', 'admin')->count();
+        $categoriesCount = Category::count();
         return view('admin.dashboard')->with([
             'usersCount' => $usersCount,
             'productsCount' => $productsCount,
             'adminsCount' => $adminsCount,
+            'categoriesCount' => $categoriesCount,
             'title' => 'Dashboard Admin',
         ]);
     }

@@ -11,7 +11,7 @@
         </div>
 
         <div class="space-y-6 text-gray-700 text-sm">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:`grid-cols-3 gap-6">
                 <div>
                     <label class="font-semibold">Name:</label>
                     <p class="mt-1">{{ $product->name }}</p>
@@ -20,6 +20,16 @@
                 <div>
                     <label class="font-semibold">Price:</label>
                     <p class="mt-1">{{ $product->price }}</p>
+                </div>
+
+                <div>
+                    <label class="font-semibold">Description:</label>
+                    <p class="mt-1">{{ $product->description }}</p>
+                </div>
+
+                <div>
+                    <label class="font-semibold">Category:</label>
+                    <p class="mt-1">{{ $product->category->name ?? 'N/A' }}</p>
                 </div>
             </div>
 

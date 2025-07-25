@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 text-gray-900">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 text-gray-900">
                     <x-dashboard-admin-item
                         title="Users" 
                         value="{{ $usersCount ?? 0 }}"
@@ -39,6 +39,15 @@
                         <path d=\'M12.0001 10.92C11.9601 10.92 11.9101 10.92 11.8701 10.92C10.9301 10.89 10.1801 10.11 10.1801 9.16003C10.1801 8.19003 10.9701 7.40002 11.9401 7.40002C12.9101 7.40002 13.7001 8.19003 13.7001 9.16003C13.6901 10.12 12.9401 10.89 12.0001 10.92Z\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/>
                         <path d=\'M10.01 13.72C9.05004 14.36 9.05004 15.41 10.01 16.05C11.1 16.78 12.89 16.78 13.98 16.05C14.94 15.41 14.94 14.36 13.98 13.72C12.9 12.99 11.11 12.99 10.01 13.72Z\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/>
                         </svg>'">
+                    </x-dashboard-admin-item>
+                    <x-dashboard-admin-item
+                        title="Categories" 
+                        value="{{ $categoriesCount ?? 0 }}"
+                        description="Data kategori yang telah terdaftar"
+                        icon-color="text-blue-500"
+                        icon-bg="bg-blue-100"
+                        trend-color="text-green-500"
+                        :icon="'<path xmlns=\'http://www.w3.org/2000/svg\' d=\'M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z\'/>'">
                     </x-dashboard-admin-item>
                 </div>
             </div>

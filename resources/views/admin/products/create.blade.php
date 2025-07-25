@@ -23,11 +23,33 @@
             </div>
 
             <div>
-                <label for="inputDetail" class="block text-sm font-medium text-gray-700">Price</label>
-                <input name="price" id="inputDetail"
-                    class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('detail') border-red-500 @enderror"
+                <label for="inputPrice" class="block text-sm font-medium text-gray-700">Price</label>
+                <input name="price" id="inputPrice" type="number" min="0"
+                    class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('price') border-red-500 @enderror"
                     placeholder="Price"></input>
                 @error('price')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="inputDescription" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea name="description" id="inputDescription"
+                    class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('description') border-red-500 @enderror"
+                    placeholder="Description"></textarea>
+                @error('description')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="inputCategory" class="block text-sm font-medium text-gray-700">Category</label>
+                <select name="category_id" id="inputCategory" class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm @error('category') border-red-500 @enderror">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+                @error('category')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
